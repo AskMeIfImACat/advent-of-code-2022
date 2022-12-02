@@ -4,16 +4,20 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var highestCaloriesTotal = new Program().GetHighestCaloriesTotal("inventory.data");
-        Console.WriteLine($"Highest calories total: {highestCaloriesTotal}");
+        var part1Answer = Program.GetTotalCaloriesCarriedByElvesCarryingTheMost("inventory.data", numberOfElves: 1);
+        Console.WriteLine($"The elf carrying the most is carrying a total of {part1Answer} calories.");
+
+        var part2Answer = Program.GetTotalCaloriesCarriedByElvesCarryingTheMost("inventory.data", numberOfElves: 3);
+        Console.WriteLine($"The three elves carrying the most are carrying a total of {part2Answer} calories.");
     }
 
-    public long GetHighestCaloriesTotal(string inventoryFilePath)
+    public static long GetTotalCaloriesCarriedByElvesCarryingTheMost(string inventoryFilePath, int numberOfElves)
     {
         var inventoryParser = new InventoryParser(inventoryFilePath);
-        var inventories = inventoryParser.GetInventories()
-            .OrderByDescending(inventory => inventory.TotalCalories);
+        var inventoriesWithMostCalories = inventoryParser.GetInventories()
+            .OrderByDescending(inventory => inventory.TotalCalories)
+            .Take(numberOfElves);
 
-        return inventories.FirstOrDefault()?.TotalCalories ?? 0;
+        return inventoriesWithMostCalories.Sum(inventory => inventory.TotalCalories);
     }
 }
