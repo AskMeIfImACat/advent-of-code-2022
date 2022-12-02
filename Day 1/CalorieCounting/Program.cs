@@ -2,12 +2,14 @@
 
 public class Program
 {
-    public static void Main(string[] args)
+    private static readonly string inventoryFilePath = "Resources/inventory.data";
+
+    public static void Main()
     {
-        var part1Answer = Program.GetTotalCaloriesCarriedByElvesCarryingTheMost("inventory.data", numberOfElves: 1);
+        var part1Answer = GetTotalCaloriesCarriedByElvesCarryingTheMost(inventoryFilePath, numberOfElves: 1);
         Console.WriteLine($"The elf carrying the most is carrying a total of {part1Answer} calories.");
 
-        var part2Answer = Program.GetTotalCaloriesCarriedByElvesCarryingTheMost("inventory.data", numberOfElves: 3);
+        var part2Answer = GetTotalCaloriesCarriedByElvesCarryingTheMost(inventoryFilePath, numberOfElves: 3);
         Console.WriteLine($"The three elves carrying the most are carrying a total of {part2Answer} calories.");
     }
 

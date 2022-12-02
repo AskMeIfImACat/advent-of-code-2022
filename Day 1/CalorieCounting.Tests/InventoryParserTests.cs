@@ -2,7 +2,7 @@ namespace CalorieCounting.Tests;
 
 public class InventoryParserTests
 {
-    private readonly InventoryParser parser = new("test-inventory.data");
+    private readonly InventoryParser parser = new("Resources/test-inventory.data");
 
     private readonly IEnumerable<Inventory> expectedInventories = new[]
     {
