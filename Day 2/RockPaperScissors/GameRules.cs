@@ -9,10 +9,5 @@ public static class GameRules
         [HandShape.Scissors] = HandShape.Paper,
     };
 
-    public static readonly IDictionary<HandShape, HandShape> LosingOutcomes = new Dictionary<HandShape, HandShape>
-    {
-        [HandShape.Rock] = HandShape.Paper,
-        [HandShape.Paper] = HandShape.Scissors,
-        [HandShape.Scissors] = HandShape.Rock,
-    };
+    public static readonly IDictionary<HandShape, HandShape> LosingOutcomes = WinningOutcomes.ToDictionary(x => x.Value, x => x.Key);
 }
