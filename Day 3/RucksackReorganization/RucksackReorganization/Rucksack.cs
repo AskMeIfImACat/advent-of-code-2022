@@ -4,20 +4,18 @@ public class Rucksack
 {
     private static readonly string itemsPriority = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    private readonly string rucksackItems;
-
-    public string Items => this.rucksackItems;
-
     public Rucksack(string rucksackItems)
     {
-        this.rucksackItems = rucksackItems;
+        this.Items = rucksackItems;
     }
+
+    public string Items { get; }
 
     public IEnumerable<char> GetMisplacedItems()
     {
-        var endOfFirstCompartment = this.rucksackItems.Length / 2;
-        var firstCompartment = this.rucksackItems[..endOfFirstCompartment];
-        var secondCompartment = this.rucksackItems[endOfFirstCompartment..];
+        var endOfFirstCompartment = this.Items.Length / 2;
+        var firstCompartment = this.Items[..endOfFirstCompartment];
+        var secondCompartment = this.Items[endOfFirstCompartment..];
 
         return firstCompartment.Intersect(secondCompartment);
     }
