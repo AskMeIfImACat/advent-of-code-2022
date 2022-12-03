@@ -1,14 +1,14 @@
 ﻿namespace RockPaperScissors.Strategies.Guides;
 
-public class RoundResultStrategyGuide : StrategyGuide
+public class DesiredResultStrategyGuide : StrategyGuide
 {
     private readonly string dataSeparator = " ";
 
-    private readonly IDictionary<string, Shape> shapeDescriptors = new Dictionary<string, Shape>()
+    private readonly IDictionary<string, HandShape> shapeDescriptors = new Dictionary<string, HandShape>()
     {
-        ["A"] = Shape.Rock,
-        ["B"] = Shape.Paper,
-        ["C"] = Shape.Scissors,
+        ["A"] = HandShape.Rock,
+        ["B"] = HandShape.Paper,
+        ["C"] = HandShape.Scissors,
     };
 
     private readonly IDictionary<string, RoundResult> roundResultDescriptors = new Dictionary<string, RoundResult>()
@@ -18,7 +18,7 @@ public class RoundResultStrategyGuide : StrategyGuide
         ["Z"] = RoundResult.PlayerWins,
     };
 
-    public RoundResultStrategyGuide(string strategyGuideFilePath)
+    public DesiredResultStrategyGuide(string strategyGuideFilePath)
         : base(strategyGuideFilePath)
     {
     }
@@ -32,7 +32,7 @@ public class RoundResultStrategyGuide : StrategyGuide
         return new DesiredResultStrategy(opponentChoice, expectedRoundResult);
     }
 
-    private Shape ParseShape(string descriptor) => this.shapeDescriptors[descriptor];
+    private HandShape ParseShape(string descriptor) => this.shapeDescriptors[descriptor];
 
     private RoundResult ParseRoundResult(string descriptor) => this.roundResultDescriptors[descriptor];
 }

@@ -2,7 +2,7 @@
 
 public class Round
 {
-    public Round(Shape opponentChoice, Shape playerChoice)
+    public Round(HandShape opponentChoice, HandShape playerChoice)
     {
         this.OpponentChoice = opponentChoice;
         this.PlayerChoice = playerChoice;
@@ -10,9 +10,9 @@ public class Round
         this.PlayerScore = CalculateScoreForRoundResult(this.Result) + CalculateScoreForShapeSelected(playerChoice);
     }
 
-    public Shape OpponentChoice { get; }
+    public HandShape OpponentChoice { get; }
 
-    public Shape PlayerChoice { get; }
+    public HandShape PlayerChoice { get; }
 
     public RoundResult Result { get; }
 
@@ -37,7 +37,7 @@ public class Round
         _ => 0,
     };
 
-    internal static int CalculateScoreForShapeSelected(Shape shape) => (int)shape;
+    internal static int CalculateScoreForShapeSelected(HandShape shape) => (int)shape;
 
     public override bool Equals(object? obj)
     {

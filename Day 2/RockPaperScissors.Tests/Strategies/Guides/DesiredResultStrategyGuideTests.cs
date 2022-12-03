@@ -12,12 +12,12 @@ public class DesiredResultStrategyGuideTests
     {
         var expectedRounds = new[]
         {
-            new DesiredResultStrategy(opponentChoice: Shape.Rock, desiredRoundResult: RoundResult.Draw),
-            new DesiredResultStrategy(opponentChoice: Shape.Paper, desiredRoundResult: RoundResult.OpponentWins),
-            new DesiredResultStrategy(opponentChoice: Shape.Scissors, desiredRoundResult: RoundResult.PlayerWins)
+            new DesiredResultStrategy(opponentChoice: HandShape.Rock, desiredRoundResult: RoundResult.Draw),
+            new DesiredResultStrategy(opponentChoice: HandShape.Paper, desiredRoundResult: RoundResult.OpponentWins),
+            new DesiredResultStrategy(opponentChoice: HandShape.Scissors, desiredRoundResult: RoundResult.PlayerWins)
         };
 
-        var parser = new RoundResultStrategyGuide(this.strategyGuideFilePath);
+        var parser = new DesiredResultStrategyGuide(this.strategyGuideFilePath);
         var actualRounds = parser.GetStrategies();
 
         Assert.Equal(expectedRounds, actualRounds);

@@ -4,14 +4,14 @@ public class PlayerChoiceStrategyGuide : StrategyGuide
 {
     private readonly string choicesSeparator = " ";
 
-    private readonly IDictionary<string, Shape> shapeDescriptors = new Dictionary<string, Shape>()
+    private readonly IDictionary<string, HandShape> shapeDescriptors = new Dictionary<string, HandShape>()
     {
-        ["A"] = Shape.Rock,
-        ["B"] = Shape.Paper,
-        ["C"] = Shape.Scissors,
-        ["X"] = Shape.Rock,
-        ["Y"] = Shape.Paper,
-        ["Z"] = Shape.Scissors,
+        ["A"] = HandShape.Rock,
+        ["B"] = HandShape.Paper,
+        ["C"] = HandShape.Scissors,
+        ["X"] = HandShape.Rock,
+        ["Y"] = HandShape.Paper,
+        ["Z"] = HandShape.Scissors,
     };
 
     public PlayerChoiceStrategyGuide(string filePath)
@@ -28,5 +28,5 @@ public class PlayerChoiceStrategyGuide : StrategyGuide
         return new PlayerChoiceStrategy(opponentChoice, playerChoice);
     }
 
-    private Shape ParseShape(string shapeDescriptor) => this.shapeDescriptors[shapeDescriptor];
+    private HandShape ParseShape(string shapeDescriptor) => this.shapeDescriptors[shapeDescriptor];
 }

@@ -2,7 +2,7 @@
 
 public interface IStrategy
 {
-    Shape PlayerChoice { get; }
+    HandShape PlayerChoice { get; }
 
-    Shape OpponentChoice { get; }
+    HandShape OpponentChoice { get; }
 }

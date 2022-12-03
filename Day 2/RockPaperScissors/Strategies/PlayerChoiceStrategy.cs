@@ -2,15 +2,15 @@
 
 public class PlayerChoiceStrategy : IStrategy
 {
-    public PlayerChoiceStrategy(Shape opponentChoice, Shape playerChoice)
+    public PlayerChoiceStrategy(HandShape opponentChoice, HandShape playerChoice)
     {
         this.OpponentChoice = opponentChoice;
         this.PlayerChoice = playerChoice;
     }
 
-    public Shape OpponentChoice { get; }
+    public HandShape OpponentChoice { get; }
 
-    public Shape PlayerChoice { get; }
+    public HandShape PlayerChoice { get; }
 
     public override bool Equals(object? obj)
     {

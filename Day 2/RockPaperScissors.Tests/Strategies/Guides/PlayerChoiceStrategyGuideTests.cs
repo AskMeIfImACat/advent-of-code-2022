@@ -12,9 +12,9 @@ public class PlayerChoiceStrategyGuideTests
     {
         var expectedRounds = new[]
         {
-            new PlayerChoiceStrategy(opponentChoice: Shape.Rock, playerChoice: Shape.Paper),
-            new PlayerChoiceStrategy(opponentChoice: Shape.Paper, playerChoice: Shape.Rock),
-            new PlayerChoiceStrategy(opponentChoice: Shape.Scissors, playerChoice: Shape.Scissors)
+            new PlayerChoiceStrategy(opponentChoice: HandShape.Rock, playerChoice: HandShape.Paper),
+            new PlayerChoiceStrategy(opponentChoice: HandShape.Paper, playerChoice: HandShape.Rock),
+            new PlayerChoiceStrategy(opponentChoice: HandShape.Scissors, playerChoice: HandShape.Scissors)
         };
 
         var parser = new PlayerChoiceStrategyGuide(this.strategyGuideFilePath);

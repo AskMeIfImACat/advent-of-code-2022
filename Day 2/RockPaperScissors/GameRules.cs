@@ -2,17 +2,17 @@
 
 public static class GameRules
 {
-    public static readonly IDictionary<Shape, Shape> WinningOutcomes = new Dictionary<Shape, Shape>
+    public static readonly IDictionary<HandShape, HandShape> WinningOutcomes = new Dictionary<HandShape, HandShape>
     {
-        [Shape.Rock] = Shape.Scissors,
-        [Shape.Paper] = Shape.Rock,
-        [Shape.Scissors] = Shape.Paper,
+        [HandShape.Rock] = HandShape.Scissors,
+        [HandShape.Paper] = HandShape.Rock,
+        [HandShape.Scissors] = HandShape.Paper,
     };
 
-    public static readonly IDictionary<Shape, Shape> LosingOutcomes = new Dictionary<Shape, Shape>
+    public static readonly IDictionary<HandShape, HandShape> LosingOutcomes = new Dictionary<HandShape, HandShape>
     {
-        [Shape.Rock] = Shape.Paper,
-        [Shape.Paper] = Shape.Scissors,
-        [Shape.Scissors] = Shape.Rock,
+        [HandShape.Rock] = HandShape.Paper,
+        [HandShape.Paper] = HandShape.Scissors,
+        [HandShape.Scissors] = HandShape.Rock,
     };
 }

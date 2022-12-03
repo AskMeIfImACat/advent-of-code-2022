@@ -24,7 +24,7 @@ public class Program
 
     public static int CalculateTotalPlayerScoreWithRoundResultStrategy(string strategyGuideFilePath)
     {
-        var strategyGuide = new RoundResultStrategyGuide(strategyGuideFilePath);
+        var strategyGuide = new DesiredResultStrategyGuide(strategyGuideFilePath);
         var rounds = strategyGuide.GetStrategies()
             .Select(strategy => new Round(strategy.OpponentChoice, strategy.PlayerChoice));
 

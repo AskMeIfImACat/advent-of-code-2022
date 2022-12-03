@@ -4,18 +4,18 @@ public class DesiredResultStrategy : IStrategy
 {
     private readonly RoundResult desiredRoundResult;
 
-    public DesiredResultStrategy(Shape opponentChoice, RoundResult desiredRoundResult)
+    public DesiredResultStrategy(HandShape opponentChoice, RoundResult desiredRoundResult)
     {
         this.OpponentChoice = opponentChoice;
         this.desiredRoundResult = desiredRoundResult;
         this.PlayerChoice = DeterminePlayerChoiceToGetDesiredResult(opponentChoice, desiredRoundResult);
     }
 
-    public Shape PlayerChoice { get; }
+    public HandShape PlayerChoice { get; }
 
-    public Shape OpponentChoice { get; }
+    public HandShape OpponentChoice { get; }
 
-    private static Shape DeterminePlayerChoiceToGetDesiredResult(Shape opponentChoice, RoundResult desiredResult)
+    private static HandShape DeterminePlayerChoiceToGetDesiredResult(HandShape opponentChoice, RoundResult desiredResult)
     {
         return desiredResult switch
         {
