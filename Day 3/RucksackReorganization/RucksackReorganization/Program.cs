@@ -18,7 +18,7 @@ public class Program
         var rucksacks = GetRucksacksFromFile(rucksacksFilePath);
         var misplacedItems = rucksacks.SelectMany(rucksack => rucksack.GetMisplacedItems());
 
-        return GetItemPrioritiesSum(misplacedItems);
+        return CalculateItemPrioritiesSum(misplacedItems);
     }
 
     public static int CalculateSumOfPrioritiesForCommonItems(string rucksacksFilePath, int rucksacksPerGroup)
@@ -27,12 +27,12 @@ public class Program
         var rucksacksGroups = allRucksacks.Chunk(rucksacksPerGroup).Select(rucksacks => new RucksackGroup(rucksacks));
         var commonItemsInGroups = rucksacksGroups.SelectMany(groups => groups.GetCommonItems());
 
-        return GetItemPrioritiesSum(commonItemsInGroups);
+        return CalculateItemPrioritiesSum(commonItemsInGroups);
     }
 
     private static IEnumerable<Rucksack> GetRucksacksFromFile(string rucksacksFilePath)
         => File.ReadLines(rucksacksFilePath).Select(items => new Rucksack(items));
 
-    private static int GetItemPrioritiesSum(IEnumerable<char> items)
+    private static int CalculateItemPrioritiesSum(IEnumerable<char> items)
         => items.Select(Rucksack.GetItemPriority).Sum();
 }
