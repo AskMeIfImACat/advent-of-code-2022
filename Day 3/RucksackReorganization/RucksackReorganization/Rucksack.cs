@@ -3,7 +3,10 @@
 public class Rucksack
 {
     private static readonly string itemsPriority = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
     private readonly string rucksackItems;
+
+    public string Items => this.rucksackItems;
 
     public Rucksack(string rucksackItems)
     {

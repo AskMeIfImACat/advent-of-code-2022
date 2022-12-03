@@ -22,4 +22,15 @@ public class RucksackTests
 
         Assert.Equal(expectedPriority, actualPriority);
     }
+
+    [Fact]
+    public void CanGetItems()
+    {
+        var expectedItems = "vJrwpWtwJgWrhcsFMMfFFhFp";
+        var rucksack = new Rucksack(expectedItems);
+
+        var actualItems = rucksack.Items;
+
+        Assert.Equal(expectedItems, actualItems);
+    }
 }
