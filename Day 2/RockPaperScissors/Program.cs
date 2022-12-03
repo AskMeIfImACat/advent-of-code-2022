@@ -14,23 +14,16 @@ public class Program
     }
 
     public static int CalculateTotalPlayerScoreWithPlayerChoiceStrategy(string strategyGuideFilePath)
-    {
-        var strategyGuide = new PlayerChoiceStrategyGuide(strategyGuideFilePath);
-        var rounds = strategyGuide.GetStrategies()
-            .Select(strategy => new Round(strategy.OpponentChoice, strategy.PlayerChoice));
-
-        return CalculateTotalPlayerScore(rounds);
-    }
+        => CalculateTotalPlayerScore(new PlayerChoiceStrategyGuide(strategyGuideFilePath));
 
     public static int CalculateTotalPlayerScoreWithRoundResultStrategy(string strategyGuideFilePath)
+        => CalculateTotalPlayerScore(new DesiredResultStrategyGuide(strategyGuideFilePath));
+
+    public static int CalculateTotalPlayerScore(StrategyGuide strategyGuide)
     {
-        var strategyGuide = new DesiredResultStrategyGuide(strategyGuideFilePath);
         var rounds = strategyGuide.GetStrategies()
             .Select(strategy => new Round(strategy.OpponentChoice, strategy.PlayerChoice));
 
-        return CalculateTotalPlayerScore(rounds);
+        return rounds.Select(round => round.PlayerScore).Sum();
     }
-
-    public static int CalculateTotalPlayerScore(IEnumerable<Round> rounds)
-        => rounds.Select(round => round.PlayerScore).Sum();
 }
