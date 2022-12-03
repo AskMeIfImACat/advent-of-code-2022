@@ -1,19 +1,36 @@
-﻿namespace RockPaperScissors;
+﻿using RockPaperScissors.Strategies.Guides;
+
+namespace RockPaperScissors;
 
 public class Program
 {
     public static void Main()
     {
-        var part1Answer = CalculateTotalPlayerScore("Resources/strategy-guide.data");
-        Console.WriteLine($"The total player score is {part1Answer}.");
+        var part1Answer = CalculateTotalPlayerScoreWithPlayerChoiceStrategy("Resources/strategy-guide.data");
+        Console.WriteLine($"The total player score when using the player choice strategy is {part1Answer}.");
+
+        var part2Answer = CalculateTotalPlayerScoreWithRoundResultStrategy("Resources/strategy-guide.data");
+        Console.WriteLine($"The total player score when using the round result strategy is {part2Answer}.");
     }
 
-    public static int CalculateTotalPlayerScore(string strategyGuideFilePath)
+    public static int CalculateTotalPlayerScoreWithPlayerChoiceStrategy(string strategyGuideFilePath)
     {
-        var strategyGuideParser = new StrategyGuideParser(strategyGuideFilePath);
-        var rounds = strategyGuideParser.GetAllRounds();
-        var totalPlayerScore = rounds.Select(round => round.PlayerScore).Sum();
+        var strategyGuide = new PlayerChoiceStrategyGuide(strategyGuideFilePath);
+        var rounds = strategyGuide.GetStrategies()
+            .Select(strategy => new Round(strategy.OpponentChoice, strategy.PlayerChoice));
 
-        return totalPlayerScore;
+        return CalculateTotalPlayerScore(rounds);
     }
+
+    public static int CalculateTotalPlayerScoreWithRoundResultStrategy(string strategyGuideFilePath)
+    {
+        var strategyGuide = new RoundResultStrategyGuide(strategyGuideFilePath);
+        var rounds = strategyGuide.GetStrategies()
+            .Select(strategy => new Round(strategy.OpponentChoice, strategy.PlayerChoice));
+
+        return CalculateTotalPlayerScore(rounds);
+    }
+
+    public static int CalculateTotalPlayerScore(IEnumerable<Round> rounds)
+        => rounds.Select(round => round.PlayerScore).Sum();
 }

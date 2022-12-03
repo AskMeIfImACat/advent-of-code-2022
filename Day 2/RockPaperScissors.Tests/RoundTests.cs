@@ -1,4 +1,6 @@
-﻿namespace RockPaperScissors.Tests;
+﻿using RockPaperScissors.Strategies;
+
+namespace RockPaperScissors.Tests;
 
 public class RoundTests
 {
