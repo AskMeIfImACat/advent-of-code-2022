@@ -16,22 +16,8 @@ public class SectionAssignement
         && this.Range.End.Value >= other.Range.End.Value;
 
     public bool Overlaps(SectionAssignement other)
-        => this.Contains(other)
-        || other.Contains(this)
-        || this.OverlapsOnTheLeft(other)
-        || this.OverlapsOnTheRight(other);
-
-    private bool OverlapsOnTheLeft(SectionAssignement other)
-        => this.Range.Start.Value <= other.Range.Start.Value
-        && this.Range.End.Value <= other.Range.End.Value
-        && this.Range.End.Value >= other.Range.Start.Value;
-
-
-    private bool OverlapsOnTheRight(SectionAssignement other)
-        => this.Range.Start.Value >= other.Range.Start.Value
-        && this.Range.Start.Value <= other.Range.End.Value
-        && this.Range.End.Value >= other.Range.Start.Value;
-
+        => this.Range.End.Value >= other.Range.Start.Value
+        && this.Range.Start.Value <= other.Range.End.Value;
 
     private static Range ParseRange(string input)
     {
