@@ -1,6 +1,8 @@
-namespace SupplyStacks.Tests;
+﻿using SupplyStacks.Instructions;
 
-public class MoveInstructionTests
+namespace SupplyStacks.Tests.Instructions;
+
+public class PickMultipleCratesAndMoveTests
 {
     private readonly Cargo cargo = new()
     {
@@ -19,23 +21,23 @@ public class MoveInstructionTests
             new Crates("P")
         };
 
-        var instruction = new MoveInstruction(quantity: 1, from: 1, to: 0);
+        var instruction = new PickMultipleCratesAndMove(quantity: 1, from: 1, to: 0);
         instruction.Execute(this.cargo);
 
         Assert.Equal(expectedCargo, this.cargo);
     }
 
     [Fact]
-    public void CanMoveMultipleCratesFromOneStackToAnOther()
+    public void CanMoveMultipleCratesFromOneStackToAnOtherAndPreserveTheCratesOrder()
     {
         var expectedCargo = new Cargo
         {
-            new Crates("Z", "N", "D", "C", "M"),
+            new Crates("Z", "N", "M", "C", "D"),
             new Crates(),
             new Crates("P")
         };
 
-        var instruction = new MoveInstruction(quantity: 3, from: 1, to: 0);
+        var instruction = new PickMultipleCratesAndMove(quantity: 3, from: 1, to: 0);
         instruction.Execute(this.cargo);
 
         Assert.Equal(expectedCargo, this.cargo);
@@ -46,17 +48,17 @@ public class MoveInstructionTests
     {
         var expectedCargo = new Cargo
         {
-            new Crates("C"),
             new Crates("M"),
-            new Crates("P", "D", "N", "Z")
+            new Crates("C"),
+            new Crates("P", "Z", "N", "D")
         };
 
-        var procedure = new MoveInstruction[]
+        var procedure = new PickMultipleCratesAndMove[]
         {
-            new MoveInstruction(quantity: 1, from: 1, to: 0),
-            new MoveInstruction(quantity: 3, from: 0, to: 2),
-            new MoveInstruction(quantity: 2, from: 1, to: 0),
-            new MoveInstruction(quantity: 1, from: 0, to: 1),
+            new PickMultipleCratesAndMove(quantity: 1, from: 1, to: 0),
+            new PickMultipleCratesAndMove(quantity: 3, from: 0, to: 2),
+            new PickMultipleCratesAndMove(quantity: 2, from: 1, to: 0),
+            new PickMultipleCratesAndMove(quantity: 1, from: 0, to: 1),
         };
 
         foreach (var instruction in procedure)

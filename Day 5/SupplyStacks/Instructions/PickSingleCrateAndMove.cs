@@ -1,6 +1,6 @@
-﻿namespace SupplyStacks;
+﻿namespace SupplyStacks.Instructions;
 
-public class MoveInstruction
+public class PickSingleCrateAndMove : IInstruction
 {
     private readonly int quantity;
 
@@ -8,7 +8,7 @@ public class MoveInstruction
 
     public int To { get; }
 
-    public MoveInstruction(int quantity, int from, int to)
+    public PickSingleCrateAndMove(int quantity, int from, int to)
     {
         this.quantity = quantity;
         this.From = from;
@@ -20,7 +20,7 @@ public class MoveInstruction
         var sourceStack = cargo.ElementAt(this.From);
         var destinationStack = cargo.ElementAt(this.To);
 
-        for (int numberOfCratesMoved = 0; numberOfCratesMoved < this.quantity; numberOfCratesMoved++)
+        for (var numberOfCratesMoved = 0; numberOfCratesMoved < this.quantity; numberOfCratesMoved++)
         {
             MoveOneCrate(sourceStack, destinationStack);
         }
@@ -34,7 +34,7 @@ public class MoveInstruction
 
     public override bool Equals(object? obj)
     {
-        return obj is MoveInstruction instruction &&
+        return obj is PickSingleCrateAndMove instruction &&
                this.quantity == instruction.quantity &&
                this.From == instruction.From &&
                this.To == instruction.To;

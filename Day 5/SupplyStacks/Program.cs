@@ -1,4 +1,6 @@
-﻿namespace SupplyStacks;
+﻿using SupplyStacks.UnloadingProcedures;
+
+namespace SupplyStacks;
 
 public class Program
 {
@@ -6,20 +8,22 @@ public class Program
 
     public static void Main(string[] args)
     {
-        var part1Answer = GetCratesOnTopOfEachStacks(procedureFilePath);
-        Console.WriteLine($"The crates on top of each stack after following the procedure will be '{part1Answer}'.");
+        var part1Answer = GetCratesOnTopOfEachStacks(new CrateMover9000Procedure(procedureFilePath));
+        Console.WriteLine($"The crates on top of each stack after following the Mover 9000 unloading procedure will be '{part1Answer}'.");
+
+        var part2Answer = GetCratesOnTopOfEachStacks(new CrateMover9001Procedure(procedureFilePath));
+        Console.WriteLine($"The crates on top of each stack after following the Mover 9001 unloading procedure will be '{part2Answer}'.");
     }
 
-    public static string GetCratesOnTopOfEachStacks(string procedureFilePath)
+    public static string GetCratesOnTopOfEachStacks(UnloadingProcedure unloadingProcedure)
     {
-        var procedure = UnloadingProcedure.FromFile(procedureFilePath);
-        var cargo = ExecuteInstructions(procedure);
+        var cargo = UnloadCargo(unloadingProcedure);
         var cratesOnTop = string.Join(string.Empty, cargo.Select(crates => crates.Peek()));
 
         return cratesOnTop;
     }
 
-    private static Cargo ExecuteInstructions(UnloadingProcedure procedure)
+    private static Cargo UnloadCargo(UnloadingProcedure procedure)
     {
         var cargo = procedure.Cargo;
 
