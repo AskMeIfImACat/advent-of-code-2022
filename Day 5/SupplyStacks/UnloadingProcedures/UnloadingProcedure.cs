@@ -25,8 +25,8 @@ public class UnloadingProcedure<TInstruction>
     {
         var fileLines = File.ReadLines(filePath);
 
-        this.Cargo = UnloadingProcedure<TInstruction>.ParseCargo(fileLines);
-        this.Instructions = this.ParseInstructions(fileLines);
+        this.Cargo = ParseCargo(fileLines);
+        this.Instructions = ParseInstructions(fileLines);
     }
 
     private static Cargo ParseCargo(IEnumerable<string> fileLines)
@@ -76,15 +76,15 @@ public class UnloadingProcedure<TInstruction>
 
     private static bool IsCrateEmpty(string crateIdentifier) => string.IsNullOrWhiteSpace(crateIdentifier);
 
-    private IEnumerable<TInstruction> ParseInstructions(IEnumerable<string> fileLines)
+    private static IEnumerable<TInstruction> ParseInstructions(IEnumerable<string> fileLines)
     {
         var instructionLines = fileLines.SkipWhile(line => !IsEndOfCargo(line)).Skip(1);
 
-        return instructionLines.Select(this.ParseInstruction);
+        return instructionLines.Select(ParseInstruction);
     }
 
 
-    private TInstruction ParseInstruction(string line)
+    private static TInstruction ParseInstruction(string line)
     {
         var instruction = new TInstruction();
 
