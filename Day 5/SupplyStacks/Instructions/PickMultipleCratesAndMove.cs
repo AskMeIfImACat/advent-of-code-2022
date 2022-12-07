@@ -1,26 +1,22 @@
 ﻿namespace SupplyStacks.Instructions;
 
-public class PickMultipleCratesAndMove : IInstruction
+public class PickMultipleCratesAndMove : BaseInstruction
 {
-    private readonly int quantity;
-
-    public int From { get; }
-
-    public int To { get; }
-
-    public PickMultipleCratesAndMove(int quantity, int from, int to)
+    public PickMultipleCratesAndMove()
     {
-        this.quantity = quantity;
-        this.From = from;
-        this.To = to;
     }
 
-    public void Execute(Cargo cargo)
+    public PickMultipleCratesAndMove(int quantity, int from, int to)
+        : base(quantity, from, to)
+    {
+    }
+
+    public override void Execute(Cargo cargo)
     {
         var sourceStack = cargo.ElementAt(this.From);
         var destinationStack = cargo.ElementAt(this.To);
 
-        MoveMultipleCrates(this.quantity, sourceStack, destinationStack);
+        MoveMultipleCrates(this.Quantity, sourceStack, destinationStack);
     }
 
     private static void MoveMultipleCrates(
@@ -42,13 +38,13 @@ public class PickMultipleCratesAndMove : IInstruction
     public override bool Equals(object? obj)
     {
         return obj is PickMultipleCratesAndMove instruction &&
-               this.quantity == instruction.quantity &&
+               this.Quantity == instruction.Quantity &&
                this.From == instruction.From &&
                this.To == instruction.To;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(this.quantity, this.From, this.To);
+        return HashCode.Combine(this.Quantity, this.From, this.To);
     }
 }
