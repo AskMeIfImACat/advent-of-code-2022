@@ -10,4 +10,14 @@ public class ProgramTests
 
         Assert.Equal(95437, result);
     }
+
+    [Fact]
+    public void CanFindTheSmallestDirectoryToFreeUpSpace()
+    {
+        var result = Program.FindDirectoryToDelete(
+            terminalOutputPath: "Resources/terminal-output-test.data",
+            unusedSpaceRequired: 30000000);
+
+        Assert.Equal(24933642, result?.Size ?? 0);
+    }
 }
