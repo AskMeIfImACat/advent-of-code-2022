@@ -2,9 +2,7 @@
 
 public class MarkerLocator
 {
-    private static readonly int windowSize = 4;
-
-    public Marker? Find(string buffer)
+    public Marker? Find(string buffer, int windowSize)
     {
         for (int characterIndex = 0; characterIndex < buffer.Length - windowSize; characterIndex++)
         {
@@ -20,5 +18,5 @@ public class MarkerLocator
     }
 
     public bool ContainsOnlyDistinctCharacters(string window)
-        => window.Distinct().Count() == windowSize;
+        => window.Distinct().Count() == window.Length;
 }
