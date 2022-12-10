@@ -40,23 +40,6 @@ public class TreeGrid
         return isEdgeTree || isVisibleWithinRow || isVisibleWithinColumn;
     }
 
-    private bool IsTreeAtEdge(int row, int column)
-    {
-        return row == 0
-            || column == 0
-            || row == this.Heights.GetUpperBound(0)
-            || column == this.Heights.GetUpperBound(1);
-    }
-
-    private static bool IsVisibleFromEdge(int treeIndex, int[] treeHeights)
-    {
-        var currentTreeHeight = treeHeights[treeIndex];
-        var areTreesBeforeSmaller = treeHeights[0..treeIndex].All(height => height < currentTreeHeight);
-        var areTreesAfterSmaller = treeHeights[(treeIndex + 1)..].All(height => height < currentTreeHeight);
-
-        return areTreesBeforeSmaller || areTreesAfterSmaller;
-    }
-
     public static TreeGrid FromFile(string filePath)
     {
         var lines = File.ReadAllLines(filePath);
@@ -104,5 +87,82 @@ public class TreeGrid
     public override int GetHashCode()
     {
         return HashCode.Combine(this.Heights);
+    }
+
+    private bool IsTreeAtEdge(int row, int column)
+    {
+        return row == 0
+            || column == 0
+            || row == this.Heights.GetUpperBound(0)
+            || column == this.Heights.GetUpperBound(1);
+    }
+
+    private static bool IsVisibleFromEdge(int treeIndex, int[] treeHeights)
+    {
+        var currentTreeHeight = treeHeights[treeIndex];
+        var areTreesBeforeSmaller = treeHeights[0..treeIndex].All(height => height < currentTreeHeight);
+        var areTreesAfterSmaller = treeHeights[(treeIndex + 1)..].All(height => height < currentTreeHeight);
+
+        return areTreesBeforeSmaller || areTreesAfterSmaller;
+    }
+
+    public ViewingDistance GetViewingDistance(int row, int column)
+    {
+        var treesVisiblesInRow = GetNumberOfTreesVisibleFrom(column, this.Rows(row).ToArray());
+        var treesVisiblesInColumn = GetNumberOfTreesVisibleFrom(row, this.Columns(column).ToArray());
+
+        return new ViewingDistance(
+            Top: treesVisiblesInColumn.Item1,
+            Right: treesVisiblesInRow.Item2,
+            Down: treesVisiblesInColumn.Item2,
+            Left: treesVisiblesInRow.Item1);
+    }
+
+    private static (int, int) GetNumberOfTreesVisibleFrom(int currentTreeIndex, int[] treeHeights)
+    {
+        var numberOfTreesVisibleBefore = GetNumberOfTreesVisibleBefore(currentTreeIndex, treeHeights);
+        var numberOfTreesVisibleAfter = GetNumberOfTreesVisibleAfter(currentTreeIndex, treeHeights);
+
+        return (numberOfTreesVisibleBefore, numberOfTreesVisibleAfter);
+    }
+
+    private static int GetNumberOfTreesVisibleAfter(int currentTreeIndex, int[] treeHeights)
+    {
+        var numberOfTreesVisibleAfter = 0;
+        var currentTreeHeight = treeHeights[currentTreeIndex];
+
+        for (int treeIndex = currentTreeIndex + 1; treeIndex < treeHeights.Length; treeIndex++)
+        {
+            var treeHeight = treeHeights[treeIndex];
+            if (treeHeight >= currentTreeHeight)
+            {
+                numberOfTreesVisibleAfter++;
+                break;
+            }
+
+            numberOfTreesVisibleAfter++;
+        }
+
+        return numberOfTreesVisibleAfter;
+    }
+
+    private static int GetNumberOfTreesVisibleBefore(int currentTreeIndex, int[] treeHeights)
+    {
+        var numberOfTreesVisibleBefore = 0;
+        var currentTreeHeight = treeHeights[currentTreeIndex];
+
+        for (int treeIndex = currentTreeIndex - 1; treeIndex >= 0; treeIndex--)
+        {
+            var treeHeight = treeHeights[treeIndex];
+            if (treeHeight >= currentTreeHeight)
+            {
+                numberOfTreesVisibleBefore++;
+                break;
+            }
+
+            numberOfTreesVisibleBefore++;
+        }
+
+        return numberOfTreesVisibleBefore;
     }
 }

@@ -152,4 +152,19 @@ public class TreeGridTests
 
         Assert.Equal(21, treeGrid.Visible.Count());
     }
+
+    [Fact]
+    public void CanMeasureViewingDistanceTowardsTheEdge()
+    {
+        var treeGrid = new TreeGrid(new[,] {
+            { 0, 0, 0, 0 },
+            { 1, 2, 3, 4 },
+            { 0, 0, 0, 0 },
+        });
+
+        var expectedViewingDistance = new ViewingDistance(Top: 1, Right: 1, Down: 1, Left: 2);
+        var actualViewingDistance = treeGrid.GetViewingDistance(row: 1, column: 2);
+
+        Assert.Equal(expectedViewingDistance, actualViewingDistance);
+    }
 }
